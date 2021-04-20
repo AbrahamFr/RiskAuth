@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import secure_filename
+from risk_values import LogInformation
 
 app = Flask(__name__)
 
@@ -12,6 +13,7 @@ def index():
 
 @app.route('/log', methods=['GET', 'POST'])
 def log():
+    """Save log file"""
     if request.method == 'POST':
         print(request.files)
         f = request.files['fileUpload']
@@ -45,3 +47,5 @@ with app.test_request_context():
 with app.test_request_context('/log', method='POST'):
     assert request.path == '/log'
     assert request.method == 'POST'
+
+log_info = LogInformation('./logs')
