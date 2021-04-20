@@ -1,6 +1,7 @@
 """Risk Service to dynamically enforce types of authentication"""
 
 from flask import Flask, render_template, request, url_for
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -12,7 +13,10 @@ def index():
 @app.route('/log', methods=['GET', 'POST'])
 def log():
     if request.method == 'POST':
-        return "log it"
+        print(request.files)
+        f = request.files['fileUpload']
+        f.save('./logs/' + secure_filename(f.filename))
+        return "logged it"
     else:
         return render_template('log.html')
 
@@ -35,4 +39,9 @@ def failed_login_count_lastweek():
 
 with app.test_request_context():
     print(url_for('index'))
+    print(url_for('log'))
     print(url_for('risk'))
+
+with app.test_request_context('/log', method='POST'):
+    assert request.path == '/log'
+    assert request.method == 'POST'

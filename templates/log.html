@@ -13,4 +13,14 @@
       POST: /log
     </li>
   </ul>
+  <form action="/log" method="POST" enctype="multipart/form-data">
+    <h2>File Upload</h2>
+    <div>
+      <label for="fileUpload"></label>
+      <input name="fileUpload" id="fileUpload" type="file" />
+    </div>
+    <div>
+      <input type="submit" value="Upload log file">
+    </div>
+  </form>
 </body>
