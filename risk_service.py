@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from risk_values import LogInformation
 
 app = Flask(__name__)
+log_info = LogInformation('./logs')
 
 @app.route('/')
 @app.route('/index')
@@ -17,7 +18,9 @@ def log():
     if request.method == 'POST':
         print(request.files)
         f = request.files['fileUpload']
-        f.save('./logs/' + secure_filename(f.filename))
+        file_path = './logs/' + secure_filename(f.filename)
+        f.save(file_path)
+        log_info.addLog(file_path)
         return "logged it"
     else:
         return render_template('log.html')
@@ -47,5 +50,3 @@ with app.test_request_context():
 with app.test_request_context('/log', method='POST'):
     assert request.path == '/log'
     assert request.method == 'POST'
-
-log_info = LogInformation('./logs')
