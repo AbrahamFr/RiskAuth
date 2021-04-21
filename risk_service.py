@@ -31,7 +31,7 @@ def risk():
 
 @app.route('/risk/isuserknown/<username>')
 def is_user_known(username):
-    return "true"
+    return f"{log_info.is_user_known(username)}".lower()
 
 @app.route('/risk/isipknown/<ip>')
 def is_ip_known(ip):
