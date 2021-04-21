@@ -72,3 +72,14 @@ class LogInformation:
             format = "%Y%m%d %H:%M:%S"
             return datetime.datetime.strptime(sorted_actions[0]['datetime'], format)
         return None
+
+    def failed_login_count_lastweek(self):
+        # use anonymous lambda to get the 'datetime' key and reverse sort
+        sorted_actions = sorted(self._logged_actions, key=lambda k: k.get('datetime', 0), reverse=True)
+        format = "%Y%m%d %H:%M:%S"
+        one_week_back = datetime.datetime.now() + datetime.timedelta(days = -7)
+        # Use list comprehensions to filter down the list
+        filtered_actions = [x for x in sorted_actions if x['action'] == 'login failed' and datetime.datetime.strptime(x['datetime'], format) < one_week_back ]
+        if len(filtered_actions) > 0:
+            return len(filtered_actions)
+        return 0

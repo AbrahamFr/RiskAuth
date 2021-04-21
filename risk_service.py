@@ -55,7 +55,7 @@ def last_failed_login_date(username):
 
 @app.route('/risk/failedlogincountlastweek')
 def failed_login_count_lastweek():
-    return "4"
+    return f"{log_info.failed_login_count_lastweek()}"
 
 
 with app.test_request_context():
