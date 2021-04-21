@@ -7,5 +7,11 @@
   ],
   "known_devices": [
     "laptop1", "laptop2", "laptop3", "laptop4", "laptop5"
+  ],
+  "known_clients": [
+    "ACME", "Appgate", "Cryptzone", "Sprint"
+  ],
+  "internal_ips": [
+    "61.174.51.220", "61.174.51.221", "61.174.51.223", "61.174.51.224", "61.174.51.225"
   ]
 }

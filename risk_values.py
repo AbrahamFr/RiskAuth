@@ -35,3 +35,23 @@ class LogInformation:
                 return True
         return False
 
+    def is_client_known(self, client):
+        known_clients = self._known_data["known_clients"]
+        for known_client in known_clients:
+            if client == known_client:
+                return True
+        return False
+
+    def is_ip_known(self, ip):
+        known_ips = self._known_data["known_ips"]
+        for known_ip in known_ips:
+            if ip == known_ip:
+                return True
+        return False
+
+    def is_ip_internal(self, ip):
+        internal_ips = self._known_data["internal_ips"]
+        for internal_ip in internal_ips:
+            if ip == internal_ip:
+                return True
+        return False

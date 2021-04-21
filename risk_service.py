@@ -33,9 +33,18 @@ def risk():
 def is_user_known(username):
     return f"{log_info.is_user_known(username)}".lower()
 
+@app.route('/risk/isclientknown/<client>')
+def is_client_known(client):
+    return f"{log_info.is_client_known(client)}".lower()
+
 @app.route('/risk/isipknown/<ip>')
 def is_ip_known(ip):
-    return "true"
+    return f"{log_info.is_ip_known(ip)}".lower()
+
+@app.route('/risk/isipinternal/<ip>')
+def is_ip_internal(ip):
+    return f"{log_info.is_ip_internal(ip)}".lower()
+
 
 @app.route('/risk/failedlogincountlastweek')
 def failed_login_count_lastweek():
