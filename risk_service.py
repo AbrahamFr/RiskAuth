@@ -16,7 +16,6 @@ def index():
 def log():
     """Save log file"""
     if request.method == 'POST':
-        print(request.files)
         f = request.files['fileUpload']
         file_path = './logs/' + secure_filename(f.filename)
         f.save(file_path)
@@ -44,6 +43,14 @@ def is_ip_known(ip):
 @app.route('/risk/isipinternal/<ip>')
 def is_ip_internal(ip):
     return f"{log_info.is_ip_internal(ip)}".lower()
+
+@app.route('/risk/lastsuccessfullogindate/<username>')
+def last_successful_login_date(username):
+  return f"{log_info.last_successful_login_date(username)}"
+
+@app.route('/risk/lastfailedlogindate/<username>')
+def last_failed_login_date(username):
+  return f"{log_info.last_failed_login_date(username)}"
 
 
 @app.route('/risk/failedlogincountlastweek')

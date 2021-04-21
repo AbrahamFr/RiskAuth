@@ -1,6 +1,7 @@
 """In memory handling of Risk assessments """
 
-import os, json
+import os, json, datetime
+from pprint import pprint as pp
 
 class LogInformation:
 
@@ -55,3 +56,19 @@ class LogInformation:
             if ip == internal_ip:
                 return True
         return False
+
+    def last_successful_login_date(self, username):
+        return self._sort_and_filter_logs(username, 'login successful')
+
+    def last_failed_login_date(self, username):
+        return self._sort_and_filter_logs(username, 'login failed')
+
+    def _sort_and_filter_logs(self, username, action_type):
+        # Use list comprehensions to filter down the list
+        filtered_actions = [x for x in self._logged_actions if x['action'] == action_type and x['user'] == username]
+        if len(filtered_actions) > 0:
+            # use anonymous lambda to get the 'datetime' key and reverse sort
+            sorted_actions = sorted(filtered_actions, key=lambda k: k.get('datetime', 0), reverse=True)
+            format = "%Y%m%d %H:%M:%S"
+            return datetime.datetime.strptime(sorted_actions[0]['datetime'], format)
+        return None
